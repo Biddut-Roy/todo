@@ -1,10 +1,12 @@
 import "./App.css";
+import TodoPage from "./pages/TodoPage";
 
 function App() {
   return (
     <>
-      <h1>Todo</h1>
-      <div></div>
+      <div>
+        <TodoPage />
+      </div>
     </>
   );
 }
