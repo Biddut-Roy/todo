@@ -1,14 +1,13 @@
-import { Button } from "../ui/button";
 import AddTodoModel from "./AddTodoModel";
 import TodoCard from "./TodoCard";
+import TodoFilter from "./TodoFilter";
 
 const TodoContainer = () => {
   return (
     <div>
       <div className=" flex justify-between pb-2">
-        <Button className=" bg-primary-gradient">Add todo</Button>
         <AddTodoModel />
-        <Button>Filter</Button>
+        <TodoFilter />
       </div>
       <div className=" bg-primary-gradient w-full h-full rounded-xl p-2">
         {/* <div className="bg-white rounded-md justify-between items-center p-3 space-y-5">
