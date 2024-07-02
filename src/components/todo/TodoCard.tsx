@@ -32,7 +32,7 @@ const TodoCard = ({
         id="complete"
       />
       <p className="flex-1 font-semibold">{title}</p>
-      <div className=" flex-1">
+      <div className=" flex-1 items-center ">
         <div
           className={`size-2 rounded-full 
             ${priority === "high" ? "bg-red-500" : null}
@@ -40,7 +40,6 @@ const TodoCard = ({
             ${priority === "low" ? "bg-green-500" : null}
            `}
         ></div>
-
         <p>{priority}</p>
       </div>
       <div className="flex-1">

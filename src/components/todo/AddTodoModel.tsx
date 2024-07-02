@@ -11,24 +11,44 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useAppDispatch } from "@/Redux/hook";
-import { addTodo } from "@/Redux/features/todoSlice";
+import { useAddTodosMutation } from "@/Redux/Api/api";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+// import { useAppDispatch } from "@/Redux/hook";
+// import { addTodo } from "@/Redux/features/todoSlice";
 
 const AddTodoModel = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  const dispatch = useAppDispatch();
+  const [priority, setPriority] = useState("");
+
+  //local store
+  // const dispatch = useAppDispatch();
+
+  const [addTodos, { data, isLoading, isError, isSuccess }] =
+    useAddTodosMutation();
+
+  console.log({ data, isLoading, isError, isSuccess });
 
   const onsubmit = (e: FormEvent) => {
     e.preventDefault();
-    const id = Math.random().toString(36).substring(2, 7);
+    // const id = Math.random().toString(36).substring(2, 7);
+
     const taskDetails = {
-      id,
       title: task,
       description: description,
+      inComplete: false,
+      priority,
     };
 
-    dispatch(addTodo(taskDetails));
+    //local store
+    // dispatch(addTodo(taskDetails));
+    addTodos(taskDetails);
   };
   return (
     <Dialog>
@@ -63,6 +83,19 @@ const AddTodoModel = () => {
                 id="description"
                 className="col-span-3"
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">Priority</Label>
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder="Theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="high">high</SelectItem>
+                  <SelectItem value="medium">medium</SelectItem>
+                  <SelectItem value="low">low</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogClose asChild>

@@ -8,8 +8,11 @@ import { useGetTodosQuery } from "@/Redux/Api/api";
 const TodoContainer = () => {
   // const { todos } = useAppSelector((state) => state.todos);
 
+  // const { data: todos, isLoading } = useGetTodosQuery(undefined, {
+  //   pollingInterval: 5000,
+  // });
+  // pollingInterval: 5000, mens atu data fatchis every 5scr
   const { data: todos, isLoading } = useGetTodosQuery(undefined);
-  console.log(todos);
 
   if (isLoading) {
     return <p>Loading...</p>;
