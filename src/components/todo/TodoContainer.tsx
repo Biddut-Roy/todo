@@ -1,10 +1,18 @@
-import { useAppSelector } from "@/Redux/hook";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import { useAppSelector } from "@/Redux/hook";
 import AddTodoModel from "./AddTodoModel";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
+import { useGetTodosQuery } from "@/Redux/Api/api";
 
 const TodoContainer = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  // const { todos } = useAppSelector((state) => state.todos);
+
+  const { data: todos, isLoading } = useGetTodosQuery(undefined);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       <div className=" flex justify-between pb-2">
@@ -16,7 +24,7 @@ const TodoContainer = () => {
           <p>there is no task pending</p>
         </div> */}
         <div className=" bg-white p-5 w-full h-full rounded-lg space-y-3">
-          {todos.map((item) => (
+          {todos?.data?.map((item: any) => (
             <TodoCard {...item} />
           ))}
         </div>
