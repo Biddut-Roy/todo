@@ -88,7 +88,7 @@ const AddTodoModel = () => {
               <Label className="text-right">Priority</Label>
               <Select onValueChange={(value) => setPriority(value)}>
                 <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Theme" />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="high">high</SelectItem>

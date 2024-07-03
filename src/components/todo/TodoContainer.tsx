@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { useAppSelector } from "@/Redux/hook";
+import { useState } from "react";
 import AddTodoModel from "./AddTodoModel";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 import { useGetTodosQuery } from "@/Redux/Api/api";
 
 const TodoContainer = () => {
+  const [priority, setPriority] = useState("");
   // const { todos } = useAppSelector((state) => state.todos);
 
   // const { data: todos, isLoading } = useGetTodosQuery(undefined, {
   //   pollingInterval: 5000,
   // });
   // pollingInterval: 5000, mens atu data fatchis every 5scr
-  const { data: todos, isLoading } = useGetTodosQuery(undefined);
+  const { data: todos, isLoading } = useGetTodosQuery(priority);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -21,7 +23,7 @@ const TodoContainer = () => {
     <div>
       <div className=" flex justify-between pb-2">
         <AddTodoModel />
-        <TodoFilter />
+        <TodoFilter priority={priority} setPriority={setPriority} />
       </div>
       <div className=" bg-primary-gradient w-full h-full rounded-xl p-2">
         {/* <div className="bg-white rounded-md justify-between items-center p-3 space-y-5">

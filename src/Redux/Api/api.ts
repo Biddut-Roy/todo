@@ -6,10 +6,26 @@ export const baseApi = createApi({
   tagTypes: ["todo"],
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => ({
-        url: "/tasks",
-        method: "GET",
-      }),
+      //   query: (priority) => ({
+      //     url: `/tasks?priority=${priority}`,
+      //     method: "GET",
+      //   }),
+      //   query: (priority) => ({
+      //     url: `/tasks`,
+      //     method: "GET",
+      //     params: { priority },
+      //   }),
+      query: (priority) => {
+        const params = new URLSearchParams();
+        if (priority) {
+          params.append("priority", priority);
+        }
+        return {
+          url: `/tasks`,
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["todo"],
     }),
     addTodos: builder.mutation({
@@ -20,7 +36,31 @@ export const baseApi = createApi({
       }),
       invalidatesTags: ["todo"],
     }),
+    updateTodos: builder.mutation({
+      query: (option) => {
+        return {
+          url: `/task/${option.id}`,
+          method: "PUT",
+          body: option.data,
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
+    deleteTodos: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/task/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
   }),
 });
 
-export const { useGetTodosQuery, useAddTodosMutation } = baseApi;
+export const {
+  useGetTodosQuery,
+  useAddTodosMutation,
+  useUpdateTodosMutation,
+  useDeleteTodosMutation,
+} = baseApi;
